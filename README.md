@@ -1,0 +1,133 @@
+```text
+# 🚀 How to Install Java (JDK 21–25) on macOS Without Admin Rights
+
+Compatible with: macOS on Apple Silicon (M1–M5) and Intel
+Last updated: March 2026
+
+✅ This method requires no administrator password and doesn't touch system directories (/Library, /usr/local).
+Java will be available only for your user account.
+
+-------------------------------------------------------------------------------
+
+📦 OPTION 1 — THE SIMPLEST (MANUAL INSTALLATION)
+
+Step 1. Download the Portable Archive (.tar.gz)
+
+Choose one of the trusted sources:
+
+- Eclipse Temurin (Adoptium): https://adoptium.net/temurin/releases/
+  Most popular. Look for .tar.gz for macOS (aarch64/x64)
+
+- Oracle JDK: https://www.oracle.com/java/technologies/downloads/
+  Official builds. Choose "Compressed Archive"
+
+- Azul Zulu: https://www.azul.com/downloads/
+  Frequent updates. Need TAR.GZ format
+
+💡 Tip: As of 2026, Oracle still provides .tar.gz for ARM64; other vendors might offer only .pkg — check carefully!
+
+-------------------------------------------------------------------------------
+
+Step 2. Extract the Archive to Your Home Directory
+
+Open Terminal and run:
+
+# Navigate to Downloads folder
+cd ~/Downloads
+
+# Extract to your home directory (~)
+tar xzf jdk-*-macos-aarch64_bin.tar.gz -C ~          # Oracle example
+# or
+tar xzf OpenJDK*-macos-aarch64_bin.tar.gz -C ~       # Temurin example
+
+After extraction, you'll get a folder like:
+
+~/jdk-25.0.2.jdk
+~/jdk-24.0.2.jdk
+
+-------------------------------------------------------------------------------
+
+Step 3. Configure Environment (One-Time Setup)
+
+Edit your ZSH config (default shell on macOS):
+
+nano ~/.zshrc
+
+Add these lines at the end (adjust the path to match your extracted folder):
+
+# ☕ Java without admin rights
+export JAVA_HOME="$HOME/jdk-25.0.2.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+Save (Ctrl+O → Enter → Ctrl+X) and apply:
+
+source ~/.zshrc
+
+-------------------------------------------------------------------------------
+
+Step 4. Verify Installation
+
+Run these commands:
+
+java -version
+javac -version
+echo $JAVA_HOME
+which java
+
+Expected successful output:
+
+openjdk version "25.0.2" 2026-01-...
+OpenJDK Runtime Environment Temurin-25.0.2+10 (build 25.0.2+10)
+OpenJDK 64-Bit Server VM Temurin-25.0.2+10 (build 25.0.2+10, mixed mode, sharing)
+
+-------------------------------------------------------------------------------
+
+🔧 OPTION 2 — FOR DEVELOPERS (MULTIPLE VERSIONS)
+
+Use SDKMAN! — a version manager that works entirely without sudo.
+
+Install SDKMAN!:
+
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+Managing Versions:
+
+# Install different versions
+sdk install java 25.0.2-tem      # Temurin 25
+sdk install java 24.0.2-tem      # Temurin 24
+sdk install java 21.0.6-zulu     # Zulu 21 LTS
+
+# Switch between them
+sdk use java 25.0.2-tem          # for current session
+sdk default java 21.0.6-zulu     # permanently
+
+-------------------------------------------------------------------------------
+
+📚 USEFUL LINKS
+
+- Eclipse Temurin: https://adoptium.net/
+- Oracle JDK: https://www.oracle.com/java/technologies/downloads/
+- Azul Zulu: https://www.azul.com/downloads/
+- SDKMAN!: https://sdkman.io/
+
+-------------------------------------------------------------------------------
+
+❓ QUICK FAQ
+
+Where is Java located?
+
+$JAVA_HOME/bin/java
+# Example: ~/jdk-25.0.2.jdk/Contents/Home/bin/java
+
+Why no sudo required?
+We're not installing Java to system folders — only to your home directory.
+
+Getting "Permission denied" error?
+Make sure you extracted the archive to your home folder (~), not to protected system directories.
+
+-------------------------------------------------------------------------------
+
+🛠 This method works great on corporate MacBooks with limited privileges.
+If information becomes outdated — feel free to create Issues or PRs, help the community! ✨
+```
